@@ -80,3 +80,24 @@ function initPage() {
         })
     });  
 }
+    searchEl.addEventListener("click",function() {
+        const searchTerm = inputEl.value;
+        getWeather(searchTerm);
+        searchHistory.push(searchTerm);
+        localStorage.setItem("search",JSON.stringify(searchHistory));
+        renderSearchHistory();
+})
+
+    clearEl.addEventListener("click",function() {
+        searchHistory = [];
+        renderSearchHistory();
+})
+
+    function k2f(K) {
+        return Math.floor((K - 273.15) *1.8 +32);
+}
+
+    function renderSearchHistory() {
+        historyEl.innerHTML = "";
+        for (let i=0; i<searchHistory.length; i++) {
+            const historyItem = document.createElement("input");
